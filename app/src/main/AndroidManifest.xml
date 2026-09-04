@@ -8,9 +8,9 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
-        android:label="PunkVid"
+        android:label="VIDEOBYTE"
         android:icon="@mipmap/ic_launcher"
-        android:theme="@style/Theme.PunkVid"
+        android:theme="@style/Theme.VideoByte"
         android:hardwareAccelerated="true"
         android:allowBackup="true">
         <activity

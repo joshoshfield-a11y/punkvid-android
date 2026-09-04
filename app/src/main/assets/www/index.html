@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0a0a0a">
-<title>PunkVid — Punk-Aesthetic Audio-Reactive Music Video Generator</title>
+<title>VIDEOBYTE — Punk-Aesthetic Audio-Reactive Music Video Generator</title>
 <style>
 /* ============================================================
-   PUNKVID — brutalist punk design system
+   VIDEOBYTE — brutalist punk design system
    black #0a0a0a / fuchsia #d946ef / cyan #06b6d4
    ============================================================ */
 :root{
@@ -148,7 +148,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:22px;background:var(--p);
 
 <!-- ================= HEADER ================= -->
 <div id="hdr">
-  <h1 id="logo">⚡ PUNKVID</h1>
+  <h1 id="logo">⚡ VIDEOBYTE</h1>
   <span class="badge">9:16</span>
   <button class="hbtn" id="btnSafe" title="TikTok safe-zone overlay (never exported)">SAFE</button>
   <button class="hbtn" id="btnBoost" title="Mobile Boost: cut heavy FX for slow devices">BOOST</button>
@@ -279,7 +279,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:22px;background:var(--p);
 <div class="panel" id="panel-text">
   <div class="ctl">
     <h3>Text Layer</h3>
-    <div class="row"><textarea id="txtInput" rows="2" spellcheck="false">PUNKVID
+    <div class="row"><textarea id="txtInput" rows="2" spellcheck="false">VIDEOBYTE
 LOUD FOREVER</textarea></div>
     <div class="row"><label>Size (20–300)</label>
       <input type="range" id="txtSize" min="20" max="300" step="1" value="90">
@@ -362,7 +362,7 @@ LOUD FOREVER</textarea></div>
 <script>
 'use strict';
 /* ============================================================
-   PUNKVID — all-in-one engine. Sections:
+   VIDEOBYTE — all-in-one engine. Sections:
    1 helpers/state/persistence   2 audio engine   3 render core
    4 backgrounds   5 core visuals   6 chaos FX   7 post-FX
    8 text/image   9 beat logic   10 safe zone   11 perf/degrade
@@ -412,7 +412,7 @@ const DEFAULTS={
   },
   palette:'cyberpunk', customP:'#d946ef', customS:'#06b6d4', customB:'#0a0a0a', hueCycle:0,
   bg:'starfield', bgI:0.6,
-  text:'PUNKVID\nLOUD FOREVER', textSize:90, textColor:'#ffffff', textX:50, textY:42, textReact:true,
+  text:'VIDEOBYTE\nLOUD FOREVER', textSize:90, textColor:'#ffffff', textX:50, textY:42, textReact:true,
   imgScale:30, imgX:50, imgY:80, keyMode:'none', keyTol:40,
   res:'1080', fps:60, bitrate:'high', maxDur:60,
   boost:false, safezone:true
@@ -427,9 +427,9 @@ function deepMerge(a,b){
   return o;
 }
 let S=JSON.parse(JSON.stringify(DEFAULTS));
-function save(){ try{ localStorage.setItem('punkvid_v1', JSON.stringify(S)); }catch(e){} }
+function save(){ try{ localStorage.setItem('videobyte_v1', JSON.stringify(S)); }catch(e){} }
 function loadState(){ try{
-  const raw=localStorage.getItem('punkvid_v1');
+  const raw=localStorage.getItem('videobyte_v1');
   if(raw){ const p=JSON.parse(raw); if(p&&typeof p==='object') S=deepMerge(DEFAULTS,p); }
 }catch(e){} }
 
@@ -1265,12 +1265,12 @@ async function finishExport(){
   recChunks=[];
   // correct extension for the ACTUAL container (fixed known bug)
   const ext=actualMime.indexOf('mp4')>=0?'mp4':'webm';
-  lastFilename='PunkVid_'+S.res+'p_'+S.fps+'fps_'+Date.now()+'.'+ext;
+  lastFilename='VIDEOBYTE_'+S.res+'p_'+S.fps+'fps_'+Date.now()+'.'+ext;
   $('expStatus').textContent='Done: '+lastFilename+' ('+(blob.size/1e6).toFixed(1)+' MB)';
   try{
     const b64=await blobToBase64(blob);
-    if(window.PunkVidNative&&typeof window.PunkVidNative.saveVideo==='function'){
-      window.PunkVidNative.saveVideo(b64,lastFilename);
+    if(window.VideoByteNative&&typeof window.VideoByteNative.saveVideo==='function'){
+      window.VideoByteNative.saveVideo(b64,lastFilename);
       toast('SAVED TO DEVICE: '+lastFilename);
     }else{
       const url=URL.createObjectURL(blob);
@@ -1280,7 +1280,7 @@ async function finishExport(){
       setTimeout(()=>URL.revokeObjectURL(url),5000);
       toast('DOWNLOADED '+lastFilename);
     }
-    if(window.PunkVidNative&&typeof window.PunkVidNative.shareLast==='function')
+    if(window.VideoByteNative&&typeof window.VideoByteNative.shareLast==='function')
       $('btnShare').style.display='inline-block';
   }catch(e){
     console.warn('save failed',e);
@@ -1478,8 +1478,8 @@ function wireUI(){
     resizeCanvas(); updateEst(); save(); toast('TIKTOK OPTIMIZED: 1080p / 60fps / HIGH / 60s CAP');
   });
   $('btnShare').addEventListener('click',()=>{
-    if(window.PunkVidNative&&typeof window.PunkVidNative.shareLast==='function')
-      window.PunkVidNative.shareLast();
+    if(window.VideoByteNative&&typeof window.VideoByteNative.shareLast==='function')
+      window.VideoByteNative.shareLast();
   });
   window.addEventListener('resize',sizeSafeZone);
 }
